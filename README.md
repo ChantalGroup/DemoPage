@@ -1,36 +1,229 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chantal - Virtual Try-On Demo
 
-## Getting Started
+A modern Next.js application showcasing virtual try-on capabilities for fashion products. This static site features a product gallery and detailed product pages with virtual try-on functionality.
 
-First, run the development server:
+## 📋 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Key Features](#key-features)
+- [Development Guide](#development-guide)
+- [Deployment](#deployment)
+
+## 🎯 Project Overview
+
+Chantal is a demo website that allows users to browse a fashion collection and virtually try on clothing and accessories. The application is built with:
+
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **Custom Fonts** - Playfair Display, Inter, DM Sans, and Bodoni Moda
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm, yarn, pnpm, or bun package manager
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start development server
+- `npm run build` - Create production build
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+chantal-demo-golden-path/
+├── app/                      # Next.js App Router
+│   ├── layout.tsx           # Root layout with fonts and metadata
+│   ├── page.tsx             # Home page (product gallery)
+│   ├── globals.css          # Global styles and Tailwind directives
+│   ├── fonts/               # Custom font files
+│   └── product/
+│       └── [id]/
+│           └── page.tsx     # Dynamic product detail page
+│
+├── components/              # Reusable React components
+│   ├── Header.tsx           # Site header with logo
+│   ├── Footer.tsx           # Site footer with copyright
+│   ├── ProductCard.tsx      # Product card for gallery display
+│   └── ProductDetail.tsx    # Product detail page with virtual try-on
+│
+├── lib/                     # Utilities and data
+│   ├── types.ts             # TypeScript type definitions
+│   └── data/
+│       └── products.ts      # Product catalog data
+│
+├── public/                  # Static assets
+│   └── images/
+│       └── gallery/         # Product images (product-1.jpeg to product-30.jpeg)
+│
+└── Configuration files
+    ├── next.config.ts       # Next.js configuration
+    ├── tailwind.config.ts   # Tailwind CSS configuration
+    ├── tsconfig.json        # TypeScript configuration
+    └── eslint.config.mjs    # ESLint configuration
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Key Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Components
 
-## Deploy on Vercel
+#### `Header` (`components/Header.tsx`)
+- Sticky header with blur backdrop
+- Brand logo display
+- Responsive layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### `Footer` (`components/Footer.tsx`)
+- Copyright information
+- Consistent styling across pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### `ProductCard` (`components/ProductCard.tsx`)
+- Product image with Next.js Image optimization
+- Product name and price display
+- Hover effects
+- Links to product detail pages
+- "New" badge on all items
+
+#### `ProductDetail` (`components/ProductDetail.tsx`)
+- Full product information display with image, description, and pricing
+- Virtual try-on section with state management
+- Avatar creation prompt for first-time users
+- Interactive "Create Your Avatar" button
+- Size selection interface (XS, S, M, L, XL)
+- Product features list
+- Responsive two-column layout (stacked on mobile)
+- Add to Cart functionality
+- Back to gallery navigation
+
+### Data Structure
+
+#### `Product` Type (`lib/types.ts`)
+```typescript
+interface Product {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+}
+```
+
+#### Product Data (`lib/data/products.ts`)
+- 30 product entries with complete information
+- Easy to add, edit, or remove products
+- Centralized data management
+
+### Pages
+
+#### Home Page (`app/page.tsx`)
+- Hero section with tagline
+- Responsive product grid (1-4 columns based on screen size)
+- Uses `ProductCard` component for each item
+- Links to individual product pages
+
+#### Product Detail Page (`app/product/[id]/page.tsx`)
+- Dynamic route for individual products
+- Fetches product data by ID
+- Renders `ProductDetail` component
+- 404 handling for invalid product IDs
+
+## 💡 Development Guide
+
+### Adding New Products
+
+1. Open `lib/data/products.ts`
+2. Add a new product object to the array:
+
+```typescript
+{
+  id: 31,
+  name: "Product Name",
+  image: "/images/gallery/product-31.jpeg",
+  description: "Product description",
+  price: 99
+}
+```
+
+3. Add the product image to `public/images/gallery/`
+
+### Creating New Components
+
+1. Create a new file in `components/` directory
+2. Follow the existing component patterns
+3. Import and use in your pages
+
+Example:
+```typescript
+// components/YourComponent.tsx
+export default function YourComponent() {
+  return <div>Your content</div>;
+}
+```
+
+### Styling Guidelines
+
+- Use Tailwind utility classes
+- Follow responsive design patterns (mobile-first)
+- Custom fonts available via CSS variables:
+  - `font-playfair` - Playfair Display
+  - `font-inter` - Inter
+  - `font-geo` - DM Sans (used for body text)
+  - `font-display` - Bodoni Moda
+
+### Type Safety
+
+- All components use TypeScript
+- Product data is strongly typed
+- Import types from `lib/types.ts`
+
+## 🚢 Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Deploy automatically
+
+### Other Platforms
+
+```bash
+npm run build
+npm run start
+```
+
+For detailed deployment instructions, see [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
+
+## 📝 Notes
+
+- This is a static demo site with no backend
+- Product data is stored in TypeScript files
+- Images should be optimized before adding to `/public/images/gallery/`
+- The site uses Next.js Image component for automatic optimization
+
+## 🔗 Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
