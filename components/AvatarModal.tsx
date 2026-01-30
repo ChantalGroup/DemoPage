@@ -18,6 +18,7 @@ export default function AvatarModal({ isOpen, onClose, onAvatarCreated }: Avatar
   const [isCreating, setIsCreating] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   // Trigger animation when modal opens
   useEffect(() => {
@@ -330,14 +331,20 @@ export default function AvatarModal({ isOpen, onClose, onAvatarCreated }: Avatar
               </div>
 
               <div className="max-w-[300px] mx-auto">
-                <div className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl">
+                <div className={`relative aspect-[9/16] rounded-lg overflow-hidden shadow-xl transition-colors duration-300 ${isVideoReady ? 'bg-black' : 'bg-gray-100'}`}>
+                  {!isVideoReady && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+                    </div>
+                  )}
                   <video
                     src="/videos/avatar-romain-turns-0.mov"
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover"
+                    onCanPlay={() => setIsVideoReady(true)}
+                    className={`w-full h-full object-cover transition-opacity duration-300 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
                   />
                 </div>
               </div>
