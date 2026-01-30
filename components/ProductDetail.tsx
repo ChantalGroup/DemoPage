@@ -16,8 +16,8 @@ export default function ProductDetail({ product, initialHasAvatar = false }: Pro
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-white flex flex-col overflow-hidden">
-      <div className="container mx-auto px-4 py-4 max-w-7xl h-full flex flex-col">
+    <div className="min-h-screen lg:h-screen bg-white flex flex-col lg:overflow-hidden">
+      <div className="container mx-auto px-4 py-4 max-w-7xl h-auto lg:h-full flex flex-col">
         {/* Back Button */}
         <div className="flex-none mb-2">
           <Link
@@ -46,7 +46,7 @@ export default function ProductDetail({ product, initialHasAvatar = false }: Pro
           {/* Left Side - Product Image & Info */}
           <div className="w-full lg:w-1/2 flex flex-col min-h-0">
             {/* Image Container - Flexible */}
-            <div className="flex-1 relative bg-gray-50 rounded-sm overflow-hidden min-h-0">
+            <div className="relative bg-gray-50 rounded-sm overflow-hidden min-h-0 h-[50vh] lg:h-auto lg:flex-1">
               <Image
                 src={product.image}
                 alt={product.name}
@@ -93,7 +93,7 @@ export default function ProductDetail({ product, initialHasAvatar = false }: Pro
               /* No Avatar State */
               <div className="flex flex-col h-full">
                 {/* Card - Flexible Height to match image */}
-                <div className="flex-1 bg-[#FAFAFA] border border-gray-100 rounded-sm flex flex-col items-center justify-center p-8 text-center relative overflow-hidden group min-h-0">
+                <div className="bg-[#FAFAFA] border border-gray-100 rounded-sm flex flex-col items-center justify-center p-8 text-center relative overflow-hidden group min-h-0 h-[400px] lg:h-auto lg:flex-1">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                   <div className="relative z-10">
@@ -138,7 +138,7 @@ export default function ProductDetail({ product, initialHasAvatar = false }: Pro
             ) : (
               /* Has Avatar State */
               <div className="flex flex-col h-full">
-                <div className="relative flex-1 bg-gray-100 rounded-sm overflow-hidden shadow-sm min-h-0">
+                <div className="relative bg-gray-100 rounded-sm overflow-hidden shadow-sm min-h-0 h-[50vh] lg:h-auto lg:flex-1">
                   <video
                     src="/videos/avatar-romain-turn-black-tshirt.mov"
                     autoPlay
